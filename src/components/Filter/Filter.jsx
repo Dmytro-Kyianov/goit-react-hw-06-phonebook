@@ -1,26 +1,24 @@
-import PropTypes from 'prop-types';
-import { Component } from 'react';
+import { useDispatch } from 'react-redux';
+import { filterContact } from 'redux/filterContactsSlice';
+
 import css from './Filter.module.css';
 
-export class Filter extends Component {
-  render() {
-    const { value, filter } = this.props;
-    return (
-      <div>
-        <h3>Find contacts by name</h3>
-        <input
-          type="text"
-          name="filter"
-          value={value}
-          onChange={filter}
-          className={css.input}
-        ></input>
-      </div>
-    );
-  }
-}
+export const Filter = () => {
+  const dispatch = useDispatch();
 
-Filter.propTypes = {
-  value: PropTypes.string.isRequired,
-  filter: PropTypes.func.isRequired,
+  const handleInputChange = e => {
+    dispatch(filterContact(e.target.value));
+  };
+
+  return (
+    <div>
+      <h3>Find contacts by name</h3>
+      <input
+        type="text"
+        name="filter"
+        onChange={handleInputChange}
+        className={css.input}
+      ></input>
+    </div>
+  );
 };
